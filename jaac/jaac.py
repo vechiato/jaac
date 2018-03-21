@@ -86,11 +86,13 @@ def list_volumes(list_snaps, profile, region, aws_account_id):
 
     sum_snaps=0 ; sum_gibs=0
     for i in instances:
+        print("{0}".format(i.id))
         for v in i.volumes.all():
             print(", ".join((
-                v.id,
-                i.id,
+                "  "+v.id,
+                #i.id,
                 v.state,
+                v.volume_type,
                 str(v.size) + " GiB",
                 v.encrypted and "Encrypted" or "Not Encrypted"
             )))
@@ -134,6 +136,7 @@ def list_instances(profile,region,aws_account_id):
             i.id,
             i.instance_type,
             i.placement['AvailabilityZone'],
+            i.placement['HostId'],
             i.state['Name'],
             i.public_dns_name
             )))
