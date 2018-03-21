@@ -3,7 +3,7 @@ Just Another AWS Cli wrapper
 
 ## About
 
-This project uses boto3 to manage AWS EC2 instance snapshots.
+This project uses boto3 to get AWS Cli.
 
 ## Configuring
 
