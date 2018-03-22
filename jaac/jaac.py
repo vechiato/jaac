@@ -65,6 +65,8 @@ def list_orfan_snapshot(profile,aws_account_id,region):
     print("region volumes snapshots valid_snapshots orphan_snapshots gibs valid_gibs orphan_gibs")
     print("{0} {1} {2} {3} {4} {5} {6} {7}".format(region,len(active_volumes),valid_snaps+orphan_snaps,valid_snaps,orphan_snaps,orphan_gibs+valid_gibs,valid_gibs,orphan_gibs))
 
+    print("{0}% of the snapshots are orphans.".format(int(((orphan_snaps*100)/(valid_snaps+orphan_snaps)))))
+
     return
 
 @cli.group('volumes')
@@ -136,7 +138,7 @@ def list_instances(profile,region,aws_account_id):
             i.id,
             i.instance_type,
             i.placement['AvailabilityZone'],
-            i.placement['HostId'],
+            #i.placement['HostId'],
             i.state['Name'],
             i.public_dns_name
             )))
