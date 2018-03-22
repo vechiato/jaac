@@ -13,7 +13,7 @@ jaac uses the configuration file created by the AWS cli. e.g.
 
 ## Running
 
-`pipenv run "pyhon jaac/jaac.py <command> <subcomand> <--profile=profile_name> --region=region_name --aws_account_id 123456789012"`
+`$pipenv run "pyhon jaac/jaac.py <command> <subcomand> <--profile=profile_name> --region=region_name --aws_account_id 123456789012"`
 
 - *command* is instances, volumes or snapshots
 - *subcommand*  depends on command
@@ -24,7 +24,7 @@ jaac uses the configuration file created by the AWS cli. e.g.
 ### Example
 
 ```
-$ pipenv run "python jaac/jaac.py snapshots list_orphan --profile vechiato --aws_account_id xxxxxxxxx"
+$pipenv run "python jaac/jaac.py snapshots list_orphan --profile vechiato --aws_account_id xxxxxxxxx"
 orphan=False, snap-0bbe5beeb000d1d86, vol-09097262169ae524e, 8, Mon Mar 19 09:49:31 2018
 orphan=False, snap-08625b5cc43d9daed, vol-094fc87495e364c8e, 8, Mon Mar 19 09:49:49 2018
 orphan=False, snap-0710e85e2a9f9269e, vol-063d3cff8cd62a3f7, 8, Mon Mar 19 09:48:58 2018

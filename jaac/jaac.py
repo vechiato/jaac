@@ -25,14 +25,14 @@ def snapshots():
 
 @snapshots.command('list_orphan')
 @click.option('--profile', required=True, help= "You can specify your profile name.")
-@click.option('--aws_account_id',type=int,required=True,help="You must specify your AWS account id to filter the snapshots properly")
+@click.option('--aws_account_id',type=str,required=True,help="You must specify your AWS account id to filter the snapshots properly")
 @click.option('--region',default="us-east-1",help="You can specify your region. The default region is us-east-1")
 
 def list_orfan_snapshot(profile,aws_account_id,region):
     "Snapshots with no active volumes"
 
     ec2 = start_session(profile,region)
-    snapshots = ec2.snapshots.all()
+    snapshots = ec2.snapshots.filter(OwnerIds=[aws_account_id])
     volumes = list(ec2.volumes.all())
 
     active_volumes=[]
@@ -42,25 +42,23 @@ def list_orfan_snapshot(profile,aws_account_id,region):
     valid_snaps=0 ; valid_gibs=0
     orphan_snaps=0 ; orphan_gibs=0
     for s in snapshots:
-        if s.volume_id and s.owner_id == str(aws_account_id):
+        if str(s.volume_id) in active_volumes:
+            orphan=False; valid_snaps +=1
+            valid_gibs+=int(s.volume_size)
+        else:
+            orphan = True; orphan_snaps +=1
+            orphan_gibs+=int(s.volume_size)
 
-            if str(s.volume_id) in active_volumes:
-                orphan=False; valid_snaps +=1
-                valid_gibs+=int(s.volume_size)
-            else:
-                orphan = True; orphan_snaps +=1
-                orphan_gibs+=int(s.volume_size)
-
-            print(", ".join((
-                "orphan="+str(orphan),
-                s.snapshot_id,
-                #s.state,
-                s.volume_id,
-                str(s.volume_size),
-                #s.owner_id,
-                #s.owner_alias,
-                s.start_time.strftime("%c")
-            )))
+        print(", ".join((
+            "orphan="+str(orphan),
+            s.snapshot_id,
+            #s.state,
+            s.volume_id,
+            str(s.volume_size),
+            #s.owner_id,
+            #s.owner_alias,
+            s.start_time.strftime("%c")
+        )))
 
     print("region volumes snapshots valid_snapshots orphan_snapshots gibs valid_gibs orphan_gibs")
     print("{0} {1} {2} {3} {4} {5} {6} {7}".format(region,len(active_volumes),valid_snaps+orphan_snaps,valid_snaps,orphan_snaps,orphan_gibs+valid_gibs,valid_gibs,orphan_gibs))
@@ -77,14 +75,14 @@ def volumes():
 @click.option('--snapshots', 'list_snaps', default=False, is_flag=True, help="List all snapshots for each volume, not just the most recent")
 @click.option('--profile', required=True, help= "You can specify your profile name.")
 @click.option('--region', default="us-east-1", help="You can specify your region. The default region is us-east-1")
-@click.option('--aws_account_id',type=int,required=True,help="You must specify your AWS account id to filter the snapshots properly")
+@click.option('--aws_account_id',type=str,required=True,help="You must specify your AWS account id to filter the snapshots properly")
 def list_volumes(list_snaps, profile, region, aws_account_id):
     "List EC2 Volumes"
 
     ec2 = start_session(profile,region)
     instances = ec2.instances.all()
 
-    if list_snaps: snapshots = ec2.snapshots.all()
+    if list_snaps: snapshots = ec2.snapshots.filter(OwnerIds=[aws_account_id])
 
     sum_snaps=0 ; sum_gibs=0
     for i in instances:
