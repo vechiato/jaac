@@ -23,8 +23,8 @@ jaac uses the configuration file created by the AWS cli. e.g.
 
 ### Example
 
-`pipenv run "python jaac/jaac.py snapshots list_orphan --profile vechiato --aws_account_id xxxxxxxxx"
-orphan=False, snap-0bbe5beeb000d1d86, vol-09097262169ae524e, 8, Mon Mar 19 09:49:31 2018
+`pipenv run "python jaac/jaac.py snapshots list_orphan --profile vechiato --aws_account_id xxxxxxxxx"``
+`orphan=False, snap-0bbe5beeb000d1d86, vol-09097262169ae524e, 8, Mon Mar 19 09:49:31 2018
 orphan=False, snap-08625b5cc43d9daed, vol-094fc87495e364c8e, 8, Mon Mar 19 09:49:49 2018
 orphan=False, snap-0710e85e2a9f9269e, vol-063d3cff8cd62a3f7, 8, Mon Mar 19 09:48:58 2018
 orphan=True, snap-0fee72e73319a0e36, vol-0262984270e38dcf6, 8, Mon Mar 19 09:50:07 2018
@@ -40,10 +40,9 @@ orphan=False, snap-04795f1ccc9add787, vol-063d3cff8cd62a3f7, 8, Sun Mar 18 15:33
 orphan=False, snap-0d4b821c256306c6b, vol-094fc87495e364c8e, 8, Sun Mar 18 15:34:13 2018
 orphan=False, snap-0e8f42261104cdc4e, vol-09097262169ae524e, 8, Sun Mar 18 15:33:55 2018
 orphan=False, snap-0f26969f403256df3, vol-063d3cff8cd62a3f7, 8, Sun Mar 18 15:17:44 2018
-orphan=False, snap-08d786df2cf50d906, vol-063d3cff8cd62a3f7, 8, Sun Mar 18 14:55:57 2018
+orphan=False, snap-08d786df2cf50d906, vol-063d3cff8cd62a3f7, 8, Sun Mar 18 14:55:57 2018`
 
-region volumes snapshots valid_snapshots orphan_snapshots gibs valid_gibs orphan_gibs
-us-east-1 3 17 10 7 136 80 56
-
-41% of the snapshots are orphans
+`region volumes snapshots valid_snapshots orphan_snapshots gibs valid_gibs orphan_gibs
+us-east-1 3 17 10 7 136 80 56`
+`41% of the snapshots are orphans
 `
